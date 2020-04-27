@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello</title>
+    <title>ChatMe</title>
+    <link rel="icon" href="./img/favicon.png" />
+    <link rel="stylesheet" href="./css/styles.min.css" />
   </head>
   <body>
-    <div>Chat App</div>
+    <div class="chat">
+      <!-- Sidebar -->
+      <div class="chat__sidebar">
+        <div>Chat App</div>
+      </div>
 
-    <div id="messages"></div>
-
-    <form id="chatSend">
-      <input
-        type="text"
-        placeholder="Enter Message"
-        id="chatBox"
-        autocomplete="off"
-      />
-      <button>Send</button>
-    </form>
-    <button id="sendLocation">Send Location</button>
+      <!-- Main Chat -->
+      <div class="chat__main">
+        <div id="messages" class="chat__messages"></div>
+        <div class="compose">
+          <form id="chatSend">
+            <input
+              type="text"
+              placeholder="Enter Message"
+              id="chatBox"
+              autocomplete="off"
+            />
+            <button>Send</button>
+          </form>
+          <button id="sendLocation">Send Location</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Templates -->
     <script id="message-template" type="text/html">
-      <div>
-        <p>{{createdAt}} - {{messagetext}}</p>
+      <div class="message">
+        <p>
+          <span class="message__name">username</span>
+          <span class="message__meta">{{createdAt}}</span>
+        </p>
+        <p>{{messagetext}}</p>
       </div>
     </script>
 
     <script id="location-message-template" type="text/html">
-      <div>
+      <div class="message">
         <p>
-          {{createdAt}} - <a href={{location}} target="_blank">{{messagetext}}</a>
+          <span class="message__name">username</span>
+          <span class="message__meta">{{createdAt}}</span>
+        </p>
+        <p>
+          <a href={{location}} target="_blank">{{messagetext}}</a>
       </p>
       </div>
     </script>
