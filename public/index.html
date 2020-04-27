@@ -5,15 +5,40 @@
   </head>
   <body>
     <div>Chat App</div>
+
+    <div id="messages"></div>
+
     <form id="chatSend">
-      <input type="text" placeholder="Enter Message" id="chatBox" />
+      <input
+        type="text"
+        placeholder="Enter Message"
+        id="chatBox"
+        autocomplete="off"
+      />
       <button>Send</button>
     </form>
     <button id="sendLocation">Send Location</button>
+
+    <!-- Templates -->
+    <script id="message-template" type="text/html">
+      <div>
+        <p>{{createdAt}} - {{messagetext}}</p>
+      </div>
+    </script>
+
+    <script id="location-message-template" type="text/html">
+      <div>
+        <p>
+          {{createdAt}} - <a href={{location}} target="_blank">{{messagetext}}</a>
+      </p>
+      </div>
+    </script>
+
     <!-- Client side socket library -->
     <script src="/socket.io/socket.io.js"></script>
     <!-- Creating client side connection -->
     <script src="/js/chat.js"></script>
+    <!-- Additional Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>

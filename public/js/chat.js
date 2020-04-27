@@ -14,15 +14,38 @@ const socket = io();
 const $messageForm = document.getElementById("chatSend");
 const $chatInput = document.getElementById("chatBox");
 const $sendLocationButton = document.getElementById("sendLocation");
+const $messageContainer = document.getElementById("messages");
+
+// Templates
+const messageBox = document.getElementById("message-template").innerHTML;
+const locationMessageBox = document.getElementById("location-message-template")
+  .innerHTML;
 
 // For displaying a message.
 socket.on("message", (message) => {
   console.log(message);
+  const HTML = Mustache.render(messageBox, {
+    messagetext: message.text,
+    createdAt: moment(message.createdAt).format("hh:mm A"),
+  });
+  $messageContainer.insertAdjacentHTML("beforeend", HTML);
+});
+
+// Displaying location message
+socket.on("sendmylocation", (location) => {
+  console.log(location);
+  const HTML = Mustache.render(locationMessageBox, {
+    messagetext: "My current location",
+    location: location.url,
+    createdAt: moment(location.createdAt).format("hh:mm A"),
+  });
+  $messageContainer.insertAdjacentHTML("beforeend", HTML);
 });
 
 // Send Message on form submit.
 $messageForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  if ($chatInput.value === "") return null;
 
   const inputText = $chatInput.value;
   // Acknowledgement as third argument.
