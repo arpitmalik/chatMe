@@ -6,60 +6,31 @@
     <link rel="stylesheet" href="./css/styles.min.css" />
   </head>
   <body>
-    <div class="chat">
-      <!-- Sidebar -->
-      <div class="chat__sidebar">
-        <div>Chat App</div>
-      </div>
-
-      <!-- Main Chat -->
-      <div class="chat__main">
-        <div id="messages" class="chat__messages"></div>
-        <div class="compose">
-          <form id="chatSend">
-            <input
-              type="text"
-              placeholder="Enter Message"
-              id="chatBox"
-              autocomplete="off"
-            />
-            <button>Send</button>
-          </form>
-          <button id="sendLocation">Send Location</button>
-        </div>
+    <div class="centered-form">
+      <div class="centered-form__box">
+        <h1>Join</h1>
+        <form action="./chat.html">
+          <label for="username">Display Name:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Name"
+            autocomplete="off"
+            required
+          />
+          <label for="room">Room Name:</label>
+          <input
+            type="text"
+            id="room"
+            name="room"
+            placeholder="Room"
+            autocomplete="off"
+            required
+          />
+          <button>Join</button>
+        </form>
       </div>
     </div>
-
-    <!-- Templates -->
-    <script id="message-template" type="text/html">
-      <div class="message">
-        <p>
-          <span class="message__name">username</span>
-          <span class="message__meta">{{createdAt}}</span>
-        </p>
-        <p>{{messagetext}}</p>
-      </div>
-    </script>
-
-    <script id="location-message-template" type="text/html">
-      <div class="message">
-        <p>
-          <span class="message__name">username</span>
-          <span class="message__meta">{{createdAt}}</span>
-        </p>
-        <p>
-          <a href={{location}} target="_blank">{{messagetext}}</a>
-      </p>
-      </div>
-    </script>
-
-    <!-- Client side socket library -->
-    <script src="/socket.io/socket.io.js"></script>
-    <!-- Creating client side connection -->
-    <script src="/js/chat.js"></script>
-    <!-- Additional Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
   </body>
 </html>

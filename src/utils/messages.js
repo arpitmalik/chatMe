@@ -1,9 +1,9 @@
-const generateMessage = (text) => {
-  return { text, createdAt: new Date().getTime() };
+const generateMessage = (text, username) => {
+  return { text, username, createdAt: new Date().getTime() };
 };
 
-const generateLocationMessage = (url) => {
-  return { url, createdAt: new Date().getTime() };
+const generateLocationMessage = (url, username) => {
+  return { url, username, createdAt: new Date().getTime() };
 };
 
 module.exports = {

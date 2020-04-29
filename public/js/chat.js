@@ -21,10 +21,16 @@ const messageBox = document.getElementById("message-template").innerHTML;
 const locationMessageBox = document.getElementById("location-message-template")
   .innerHTML;
 
+// Options
+const { username, room } = Qs.parse(location.search, {
+  ignoreQueryPrefix: true,
+});
+
 // For displaying a message.
 socket.on("message", (message) => {
-  console.log(message);
+  // console.log(message);
   const HTML = Mustache.render(messageBox, {
+    username: message.username,
     messagetext: message.text,
     createdAt: moment(message.createdAt).format("hh:mm A"),
   });
@@ -33,8 +39,9 @@ socket.on("message", (message) => {
 
 // Displaying location message
 socket.on("sendmylocation", (location) => {
-  console.log(location);
+  // console.log(location);
   const HTML = Mustache.render(locationMessageBox, {
+    username: location.username,
     messagetext: "My current location",
     location: location.url,
     createdAt: moment(location.createdAt).format("hh:mm A"),
@@ -52,8 +59,8 @@ $messageForm.addEventListener("submit", (e) => {
   socket.emit("sendMessage", inputText, (error) => {
     $chatInput.value = "";
     $chatInput.focus();
-    if (error) return console.log(error);
-    console.log("The message was delivered");
+    // if (error) return console.log(error);
+    // console.log("The message was delivered");
   });
 });
 
@@ -74,8 +81,15 @@ $sendLocationButton.addEventListener("click", (e) => {
       () => {
         // Enable button
         $sendLocationButton.removeAttribute("disabled");
-        console.log("Location Shared");
+        // console.log("Location Shared");
       }
     );
   });
+});
+
+socket.emit("join", { username, room }, (error) => {
+  if (error) {
+    alert(error);
+    location.href = "/";
+  }
 });
