@@ -20,6 +20,7 @@ const $messageContainer = document.getElementById("messages");
 const messageBox = document.getElementById("message-template").innerHTML;
 const locationMessageBox = document.getElementById("location-message-template")
   .innerHTML;
+const sidebarTemplate = document.getElementById("sidebar-template").innerHTML;
 
 // Options
 const { username, room } = Qs.parse(location.search, {
@@ -47,6 +48,15 @@ socket.on("sendmylocation", (location) => {
     createdAt: moment(location.createdAt).format("hh:mm A"),
   });
   $messageContainer.insertAdjacentHTML("beforeend", HTML);
+});
+
+// Render list of users.
+socket.on("roomData", ({ room, users }) => {
+  const HTML = Mustache.render(sidebarTemplate, {
+    room,
+    users,
+  });
+  document.getElementById("sidebar").innerHTML = HTML;
 });
 
 // Send Message on form submit.
